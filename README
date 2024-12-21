@@ -1,0 +1,37 @@
+# ZeroVoter 🗳️
+
+A Node.js-based Ethereum voting bot that interacts with multiple blockchain networks, checks wallet balances, and executes votes based on predefined conditions.
+
+---
+
+## Features ✨
+
+- **Multi-Network Support**:
+  - Optimism
+  - Arbitrum
+  - Base
+  - Polygon
+
+- **Secure Handling of Wallets**: Uses `.env` for sensitive data like RPC URLs and delays.
+
+- **Automated Voting**: Checks wallet balances and votes based on balance thresholds.
+
+- **Logging**: Logs all operations to an `app.log` file for easy debugging and tracking.
+
+- **Randomized Delays**: Adds random delays between actions to simulate human-like behavior.
+
+---
+
+## Prerequisites ⚙️
+
+- **Node.js**: v16 or higher
+- **npm**: v7 or higher
+
+---
+
+## Installation 🚀
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/zerovoter.git
+   cd zerovoter
