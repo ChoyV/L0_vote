@@ -9,19 +9,19 @@ require("dotenv").config();
 const filename = "wallets.txt";
 const providers = {
     Optimism: {
-        provider: new ethers.JsonRpcProvider(OPTIMISM_RPC),
+        provider: new ethers.JsonRpcProvider(process.env.OPTIMISM_RPC),
         contract: "0x27Af77A7B70DF78E4F112c413A48C9784a27EC2a",
     },
     Arbitrum: {
-        provider: new ethers.JsonRpcProvider(ARBITRUM_RPC),
+        provider: new ethers.JsonRpcProvider(process.env.ARBITRUM_RPC),
         contract: "0xd5b450646037a9d98F4A6705b2D0D1Da44E629d0",
     },
     Base: {
-        provider: new ethers.JsonRpcProvider(BASE_RPC),
+        provider: new ethers.JsonRpcProvider(process.env.BASE_RPC),
         contract: "0x903b8a6c26afd8c20a91c988266ef93c1d52640f",
     },
     Polygon: {
-        provider: new ethers.JsonRpcProvider(POLYGON_RPC),
+        provider: new ethers.JsonRpcProvider(process.env.POLYGON_RPC),
         contract: "0x037bca7e8be0ab1e7ea145dff7e46b64214d613f",
     },
 };
@@ -90,7 +90,7 @@ async function processWallets() {
             console.log(`\n🚀 Начинаем проверку следующего кошелька...`);
             logToFile(`🚀 Начинаем проверку следующего кошелька...`);
             await checkBalance(key.trim());
-            await randomDelay(10000, 40000);
+            await randomDelay(process.env.DELAY_MIN, process.env.DELAY_MAX);
             console.log(`⏳ Задержка завершена, продолжаем...`);
             logToFile(`⏳ Задержка завершена, продолжаем...`);
         }
