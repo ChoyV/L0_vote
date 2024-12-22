@@ -7,6 +7,8 @@ require("dotenv").config();
 
 
 const filename = "wallets.txt";
+const DELAY_MIN = parseInt(process.env.DELAY_MIN, 10);
+const DELAY_MAX = parseInt(process.env.DELAY_MAX, 10);
 const providers = {
     Optimism: {
         provider: new ethers.JsonRpcProvider(process.env.OPTIMISM_RPC),
@@ -35,10 +37,13 @@ function getRandomDelay(min, max) {
 
 async function randomDelay(min, max) {
     const delay = getRandomDelay(min, max);
+    console.log(`Генерируемая задержка: ${delay} мс`);
     logToFile(`Задержка: ${delay} мс`);
+    if (delay > 2147483647) {
+        throw new Error(`Ошибка: задержка ${delay} превышает максимальное значение!`);
+    }
     return new Promise((resolve) => setTimeout(resolve, delay));
 }
-
 async function checkBalance(walletpriv) {
     try {
         const wallet = new ethers.Wallet(walletpriv);
@@ -90,7 +95,8 @@ async function processWallets() {
             console.log(`\n🚀 Начинаем проверку следующего кошелька...`);
             logToFile(`🚀 Начинаем проверку следующего кошелька...`);
             await checkBalance(key.trim());
-            await randomDelay(process.env.DELAY_MIN, process.env.DELAY_MAX);
+            console.log(`Параметры задержки: min = ${DELAY_MIN}, max = ${DELAY_MAX}`);
+            await randomDelay(DELAY_MIN, DELAY_MAX);
             console.log(`⏳ Задержка завершена, продолжаем...`);
             logToFile(`⏳ Задержка завершена, продолжаем...`);
         }
